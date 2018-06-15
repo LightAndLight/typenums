@@ -36,6 +36,7 @@ addons:
       - sourceline: 'ppa:hvr/ghc'
     packages:
       - libgmp-dev
+      - ghc-head
 
 before_install:
   - mkdir -p ~/.local/bin
