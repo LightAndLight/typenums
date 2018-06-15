@@ -14,16 +14,21 @@ matrix:
 
   - ghc: 8.0.1
     env: GHCVER='8.0.1' STACK_YAML="$HOME/build/adituv/typenums/stack-$GHCVER.yaml"
-  
+
   - ghc: 8.0.2
     env: GHCVER='8.0.2' STACK_YAML="$HOME/build/adituv/typenums/stack-$GHCVER.yaml"
-  
 
   - ghc: 8.2.2
     env: GHCVER='8.2.2' STACK_YAML="$HOME/build/adituv/typenums/stack.yaml"
 
   - ghc: 8.4.3
     env: GHCVER='8.4.3' STACK_YAML="$HOME/build/adituv/typenums/stack-$GHCVER.yaml"
+
+  - ghc: HEAD
+    env: GHCVER=head
+
+  allow_failures:
+  - env: GHCVER=head
 
 addons:
   apt:
@@ -40,14 +45,14 @@ before_install:
 
 
 install:
-  - travis_wait 30 stack setup --no-terminal
+  - travis_wait 30 stack setup --skip-ghc-check --no-terminal
   - stack ghc -- --version
 
-  - travis_wait 40 stack build --only-dependencies --no-terminal
-  - travis_wait 40 stack build --test --bench --haddock --no-run-tests --no-run-benchmarks --no-haddock-deps --no-terminal
+  - travis_wait 40 stack build --skip-ghc-check --only-dependencies --no-terminal
+  - travis_wait 40 stack build --skip-ghc-check --test --bench --haddock --no-run-tests --no-run-benchmarks --no-haddock-deps --no-terminal
 
 script:
-  - travis_wait 40 stack build --test --no-terminal
+  - travis_wait 40 stack build --skip-ghc-check --test --no-terminal
 
 notifications:
   email: false
