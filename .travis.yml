@@ -109,7 +109,7 @@ matrix:
     addons: {apt: {packages: [libgmp-dev]}}
 
   # Build on macOS in addition to Linux
-  - env: BUILD=stack ARGS=""
+  - env: BUILD=stack ARGS="" STACK_YAML="stack.yaml"
     compiler: ": #stack default osx"
     os: osx
 
